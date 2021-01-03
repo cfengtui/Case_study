@@ -5,25 +5,6 @@ This data set consists consumer mortages and delinquencies. The objective of thi
 ## Data
 
 The data is about 3000 consumers with 415229 records, displayed on loan part level.
--	DebtID: Unique identity of a loan part   
--	ConsumerID: Unique identity of a consumer  
--	LoanAgeR: Loan age in months  
--	InterestRateB: fixed interest rate in percentage  
--	NumberMonthsInArrears: Number of months a consumer payment is in arrears  
--	CurrentBalance: Current principal amount  
--	EstDisposableIncome: Estimates disposable income of the consumer  
--	ArrearsBalance: The amount in arrears as of the reporting date  
--	TotalExposure: Total mortgage amount including all mortgage parts  
--	IndexedTotalIncome: consumer income indexed to latest income index  
--	Original Balance: Mortgage principal amount at the time of origination  
--	LoanOriginationDate: Mortgage origination date  
--	MaturityDateR: Mortgage maturity date  
--	ReportDateB: Reporting date  
--	ConsumerAge: Age of consumer in years  
--	PropertyRegion: Region in which the property is located  
--	OriginalPropertyValue: Property value at mortgage origination assigned to a loan part. The total value of a property is the sum of property values of all loan parts   
--	ForeclosureValue: Foreclosure value of property after factoring in costs   
--	PropertyIndexFactor: Property value index factor applicable to both property value and foreclosure value.   
 
 ## Python Notebook Introduction 
 ### Required packages
@@ -69,11 +50,11 @@ We plot the precision-recall curve to demonstrate the performance of the final m
 
 We compare the performance (recall, precision and f2) of the xgboost model with two benchmark models: persistence model (always use this month deliquency to forecast next month), and naive model (if a consumer has ever positive value in his/her arrears balance, then we keep forecasting positive values in the future). Xgboost model produces much better results than the two benchmark models:
 
-| Result        | Recall        | Precision  | F2    |
-| ------------- |:-------------:| ----------:| -----:|
-| Xgboost       | 0.72          | 0.56       |0.68   |
-| Persistence   | 0.57          | 0.60       |0.58   |
-| Naive         | 1.00          | 0.10       |0.35   |
+| Result        | Recall        | Precision  | F2 score  |
+| ------------- |:-------------:| ----------:| ---------:|
+| Xgboost       | 0.72          | 0.56       | 0.68      |
+| Persistence   | 0.57          | 0.60       | 0.58      |
+| Naive         | 1.00          | 0.10       | 0.35      |
 
 ### Make the final prediction
 We calculate the probability of delinquency of each consumer in the next month. 
