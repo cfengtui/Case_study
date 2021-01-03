@@ -16,7 +16,7 @@ seaborn
 xgboost  
 
 ### Data 
-Copy the following four csv files to the working directory. The script uses a glob function to find all files with format data*.csv, please make sure that there are no other .csv files with similar names in this directory.
+Copy the following four csv files to the working directory. The script uses a glob function to find all files with format data*.csv, please make sure that there are no other .csv files with similar names in this directory.  
 data01.csv  
 data02.csv  
 data03.csv  
