@@ -16,12 +16,12 @@ seaborn
 xgboost  
 
 ### Data 
-copy those files to the working directory
-data01.csv
-data02.csv
-data03.csv
-data04.csv
-data.h5
+Copy those files to the working directory
+data01.csv  
+data02.csv  
+data03.csv  
+data04.csv  
+data.h5  
 
 The data.h5 file consists cleaned data at consumer level, this data is cached to save some computing time.
 
