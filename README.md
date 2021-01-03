@@ -65,7 +65,7 @@ The xgboost produce relatively stable results, we only tune three hyperparameter
 
 
 ### Fit the best model
-We plot the precision-recall curve to demonstrate the performance of the final model, and move the threshold to maximize the f2 score. It turns out that the optimal threshold 0.56 is not far from the default value 0.5. 
+We plot the precision-recall curve to demonstrate the performance of the final model, and move the threshold to maximize the f2 score. It turns out that the optimal threshold of 0.56 is not far from the default value of 0.5. 
 
 We compare the performance (recall, precision and f2) of the xgboost model with two benchmark models: persistence model (always use this month deliquency to forecast next month), and naive model (if a consumer has ever positive value in his/her arrears balance, then we keep forecasting positive values in the future). Xgboost model produces much better results than the two benchmark models:
 
