@@ -4,9 +4,9 @@ This data set consists consumer mortages and delinquencies. The objective of thi
 
 ## Data
 
-The data is about 3000 consumers with 415229 records, displayed on loan part level.
+The data is displayed on loan part level.
 
-## Python Notebook Introduction 
+## How to excute the jupyter notebook
 ### Required packages
 glob  
 numpy  
@@ -14,6 +14,18 @@ pandas
 matplotlib  
 seaborn  
 xgboost  
+
+### Data 
+copy those files to the working directory
+data01.csv
+data02.csv
+data03.csv
+data04.csv
+data.h5
+
+The data.h5 file consists cleaned data at consumer level, this data is cached to save some computing time.
+
+## Modelling Procedure
 
 ### Loading and preprocessing the data
 Load and merge four .csv files into pandas dataframe format.
