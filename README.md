@@ -1,6 +1,6 @@
 ## Introduction
 
-This data set consists consumer mortages and delinquencies. The objective of this case study is to estimate the chance that a consumer will be delinquent on his mortgage repayments in the next month. 
+The task has been performed by Python3 with Jupyter Notebook.
 
 ## Data
 
@@ -22,7 +22,7 @@ data02.csv
 data03.csv  
 data04.csv  
 
-The data_cleaned file consists cleaned data at consumer level, this data will be cached to save some computing time. It will take 10-20 minutes for the notebook to generate the cleaned data set, and will not be re-generated after the first run. 
+The data_cleaned file consists cleaned data at consumer level, it will take 10-15 minutes for the notebook to generate the cleaned data set, and will be cached after the first run to save computing time. 
 
 ## Modelling Procedure
 
@@ -36,7 +36,7 @@ There are 7 columns out of 19 contain missing values, we choose not to drop any 
 ### Clean data
 In some columns there are errors in the data: for example, ConsumerID 2166453 on 2016-11-30, the foreclosure value of a loan is 6.378, however the normal value should be 62942.6. We corrected those kinds of errors before we visualize the data and put the feature into our model.
 
-### Prepare data
+### Prepare data (10-15 min)
 - Since our prediction will be on consumer level, we need to transform our loan part level data to consumer level first.
 - We add some extra features: first difference of arears balnce and its lags, payment to income ratios and their lags, report month (one-hot), ect
 - According to the correlation plot, we see that there are highly correlated variables, to prevent from multicollinearity (that may cause problems for logistic regression classifier), we select 12 numerical features and 2 categorical features (have been convered to numerical features by one-hot encoding).
@@ -44,17 +44,17 @@ In some columns there are errors in the data: for example, ConsumerID 2166453 on
 - We split 80% data as training/cross-validation set, and 20% as testing set. We ignore the time dimension, and treat each record as i.i.d. 
   Since we have imbalanced dataset (much more zeros than ones), We use the option "stratify" to let the positive/negative propotion remain approximately the same in each set.
   
-### Classifier selection
+### Classifier selection (<3 min)
 As a debt management company, we forcus mainly on the positive records, and want to keep the balance of recall (TP/(TP+FN)) and precision (TP/(TP+FP)). We give more weight on recall to minimize the false-negative rate as much as possible, therefore we choose f2 score as our scroing matrix. 
 
 We use sklearn cross-validation pipeline and f2 score to evaluate the performance of three classifiers: logistic regression, random forest, and xgboost. It turns out that xgboost produces the best results.
 
-### Grid search parameters
+### Grid search parameters (3-6 min)
 The xgboost produce relatively stable results, we only tune two hyperparameters to further improve its performance:
 - scale_pos_weight: the recommand value is sum(y_train==0)/sum(y_train==1), which is around 38 in our data, we search in the range of [5,10,40]  
 - max_depth: this parameter controls the sophistication of the model, we choose the range [3,4,5]. A too high value may cause overfitting to our training set.  
 
-### Fit the best model
+### Fit the best model (<10 s)
 We plot the precision-recall curve to demonstrate the performance of the final model, and move the threshold to maximize the f2 score. It shows that the optimal threshold is 0.72 instead of the default value 0.5. 
 
 We compare the performance (recall, precision and f2) of the xgboost model with two benchmark models: persistence model (always use this month delinquency situation to forecast next month), and naive model (if a consumer has ever positive value in his/her arrears balance, then we will keep forecasting delinquncy in the future). Xgboost model produces  better results than the two benchmark models, here is a summary of results:
