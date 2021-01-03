@@ -1,6 +1,6 @@
 ## Introduction
 
-This data set consists consumer mortages and delinquencies. The objective of this case study is to estimate the chance that a consumer will be delinquent on his mortgage on his mortgage repayments in the next month. 
+This data set consists consumer mortages and delinquencies. The objective of this case study is to estimate the chance that a consumer will be delinquent on his mortgage repayments in the next month. 
 
 ## Data
 
@@ -22,7 +22,7 @@ data02.csv
 data03.csv  
 data04.csv  
 
-The data_cleaned file consists cleaned data at consumer level, this data has been cached to save some computing time. It will take 10-20 minutes for the notebook to generate the cleaned data set, and would not be re-generated after the first run. 
+The data_cleaned file consists cleaned data at consumer level, this data will be cached to save some computing time. It will take 10-20 minutes for the notebook to generate the cleaned data set, and will not be re-generated after the first run. 
 
 ## Modelling Procedure
 
@@ -45,7 +45,7 @@ In some columns there are errors in the data: for example, ConsumerID 2166453 on
   Since we have imbalanced dataset (much more zeros than ones), We use the option "stratify" to let the positive/negative propotion remain approximately the same in each set.
   
 ### Classifier selection
-Since as a debt management company, we forcus mainly on the positive records, and want to keep the balance of recall (TP/(TP+FN)) and precision (TP/(TP+FP)). We give more weight on recall to minimize the false-negative rate as much as possible, therefore we choose f2 score as our scroing matrix. 
+As a debt management company, we forcus mainly on the positive records, and want to keep the balance of recall (TP/(TP+FN)) and precision (TP/(TP+FP)). We give more weight on recall to minimize the false-negative rate as much as possible, therefore we choose f2 score as our scroing matrix. 
 
 We use sklearn cross-validation pipeline and f2 score to evaluate the performance of three classifiers: logistic regression, random forest, and xgboost. It turns out that xgboost produces the best results.
 
@@ -55,9 +55,9 @@ The xgboost produce relatively stable results, we only tune two hyperparameters 
 - max_depth: this parameter controls the sophistication of the model, we choose the range [3,4,5]. A too high value may cause overfitting to our training set.  
 
 ### Fit the best model
-We plot the precision-recall curve to demonstrate the performance of the final model, and move the threshold to maximize the f2 score. It turns out that the optimal threshold of 0.56 is not far from the default value of 0.5. 
+We plot the precision-recall curve to demonstrate the performance of the final model, and move the threshold to maximize the f2 score. It shows that the optimal threshold is 0.72 instead of the default value 0.5. 
 
-We compare the performance (recall, precision and f2) of the xgboost model with two benchmark models: persistence model (always use this month deliquency to forecast next month), and naive model (if a consumer has ever positive value in his/her arrears balance, then we keep forecasting positive values in the future). Xgboost model produces much better results than the two benchmark models:
+We compare the performance (recall, precision and f2) of the xgboost model with two benchmark models: persistence model (always use this month delinquency situation to forecast next month), and naive model (if a consumer has ever positive value in his/her arrears balance, then we will keep forecasting delinquncy in the future). Xgboost model produces  better results than the two benchmark models, here is a summary of results:
 
 | Result        | Recall        | Precision  | F2 score  |
 | ------------- |:-------------:| ----------:| ---------:|
@@ -72,4 +72,4 @@ We calculate the probability of delinquency of each consumer in the next month.
 For all consumers that have ever being delinquent, the probability will be one.
 For other consumers, for each individual i,  calculate the months to matuarity m_i, the model has produced the delinquent probability p_i, then the probability of delinquent at any time in the mortgage lifetime is: 1-(1-p_i)**m_i
 
-The above calcultion is based on the assumption that the p_i remains the same in the future. We can of course simulate all the future data of X to calculate p_i_t, and adjust above formula accordingly. 
+The above calcultion is based on the assumption that the p_i remains the same in the future. We can also try to simulate all the future data of X to calculate p_i_t, and adjust above formula accordingly. 
